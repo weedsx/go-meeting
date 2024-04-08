@@ -19,3 +19,9 @@ type MeetingListReply struct {
 	BeginAt  time.Time `json:"begin_at"`
 	EndAt    time.Time `json:"end_at"`
 }
+
+type MeetingCreateRequest struct {
+	Name    string `json:"name,omitempty"`
+	BeginAt int64  `json:"begin_at"`
+	EndAt   int64  `json:"end_at"`
+}

@@ -3,8 +3,10 @@ package service
 import (
 	"github.com/gin-gonic/gin"
 	"go-meeting/internal/define/res"
+	"go-meeting/internal/helper"
 	"go-meeting/internal/models"
 	"strings"
+	"time"
 )
 
 func MeetingList(c *gin.Context) {
@@ -31,4 +33,26 @@ func MeetingList(c *gin.Context) {
 		"list":  list,
 		"count": cnt,
 	})
+}
+
+func MeetingCreate(c *gin.Context) {
+	uc := c.MustGet("user_claims").(*helper.UserClaims)
+	in := new(MeetingCreateRequest)
+	err := c.ShouldBindJSON(in)
+	if err != nil {
+		res.Wrong(c, -1, "参数异常")
+		return
+	}
+	err = models.DB.Create(&models.RoomBasic{
+		Identity: helper.GetUUID(),
+		Name:     in.Name,
+		BeginAt:  time.UnixMilli(in.BeginAt),
+		EndAt:    time.UnixMilli(in.EndAt),
+		CreateId: uc.Id,
+	}).Error
+	if err != nil {
+		res.Wrong(c, -1, "系统异常: "+err.Error())
+		return
+	}
+	res.Success(c, "ok")
 }

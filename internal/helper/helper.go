@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"github.com/dgrijalva/jwt-go/v4"
+	"github.com/google/uuid"
 	"go-meeting/internal/define"
 )
 
@@ -45,4 +46,8 @@ func ParseToken(tokenStr string) (*UserClaims, error) {
 
 func GetMd5(s string) string {
 	return fmt.Sprintf("%x", md5.Sum([]byte(s)))
+}
+
+func GetUUID() string {
+	return uuid.New().String()
 }
