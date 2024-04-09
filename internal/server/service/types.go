@@ -1,6 +1,8 @@
 package service
 
-import "time"
+import (
+	"time"
+)
 
 type UserLoginRequest struct {
 	Username string `json:"username,omitempty"`
@@ -24,4 +26,9 @@ type MeetingCreateRequest struct {
 	Name    string `json:"name,omitempty"`
 	BeginAt int64  `json:"begin_at"`
 	EndAt   int64  `json:"end_at"`
+}
+
+type MeetingEditRequest struct {
+	Identity string `json:"identity"`
+	*MeetingCreateRequest
 }

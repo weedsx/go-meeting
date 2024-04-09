@@ -27,8 +27,8 @@ func UserLogin(c *gin.Context) {
 
 	in.Password = helper.GetMd5(in.Password)
 	data := new(models.UserBasic)
-	err = models.DB.Where("username=? and password=?", in.Username, in.Password).
-		First(&data).Error
+	err = models.DB.Where("username = ? and password = ?",
+		in.Username, in.Password).First(&data).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			res.Wrong(c, -1, "用户名或密码错误")

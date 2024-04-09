@@ -56,3 +56,33 @@ func MeetingCreate(c *gin.Context) {
 	}
 	res.Success(c, "ok")
 }
+
+func MeetingEdit(c *gin.Context) {
+	uc := c.MustGet("user_claims").(*helper.UserClaims)
+	in := new(MeetingEditRequest)
+	err := c.ShouldBindJSON(in)
+	if err != nil {
+		res.Wrong(c, -1, "参数异常")
+		return
+	}
+	err = models.DB.Model(new(models.RoomBasic)).
+		Where("identity = ? AND create_id = ?",
+			in.Identity, uc.Id).Error
+	if err != nil {
+		res.Wrong(c, -1, "系统异常: "+err.Error())
+		return
+	}
+	res.Success(c, "ok")
+}
+
+func MeetingDelete(c *gin.Context) {
+	identity := c.Query("identity")
+	uc := c.MustGet("user_claims").(*helper.UserClaims)
+	err := models.DB.Where("identity = ? and create_id = ?",
+		identity, uc.Id).Delete(&models.RoomBasic{}).Error
+	if err != nil {
+		res.Wrong(c, -1, "系统异常: "+err.Error())
+		return
+	}
+	res.Success(c, "ok")
+}

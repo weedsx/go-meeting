@@ -10,4 +10,8 @@ func meetingRouter(r *gin.Engine) {
 	r.GET("/meeting/list", service.MeetingList)
 	// 创建会议
 	r.POST("/meeting/create", service.MeetingCreate)
+	// 修改会议
+	r.POST("/meeting/edit", service.MeetingEdit)
+	// 删除会议
+	r.DELETE("/meeting/delete", service.MeetingDelete)
 }
