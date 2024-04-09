@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+// MeetingList
+// @Description Get Meeting List
 func MeetingList(c *gin.Context) {
 	in := new(MeetingListRequest)
 	err := c.ShouldBindQuery(in)
