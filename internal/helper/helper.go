@@ -2,6 +2,8 @@ package helper
 
 import (
 	"crypto/md5"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"github.com/dgrijalva/jwt-go/v4"
 	"github.com/google/uuid"
@@ -50,4 +52,23 @@ func GetMd5(s string) string {
 
 func GetUUID() string {
 	return uuid.New().String()
+}
+
+func Encode(obj any) string {
+	b, err := json.Marshal(obj)
+	if err != nil {
+		panic(err)
+	}
+	return base64.StdEncoding.EncodeToString(b)
+}
+
+func Decode(in string, objPointer any) {
+	b, err := base64.StdEncoding.DecodeString(in)
+	if err != nil {
+		panic(err)
+	}
+	err = json.Unmarshal(b, objPointer)
+	if err != nil {
+		panic(err)
+	}
 }
