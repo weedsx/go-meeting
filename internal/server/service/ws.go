@@ -20,8 +20,7 @@ func WsP2PConnection(c *gin.Context) {
 
 	// 获取房间和用户的信息
 	in := new(WsP2PConnectionRequest)
-	err := c.ShouldBindUri(in)
-	if err != nil {
+	if err := c.ShouldBindUri(in); err != nil {
 		res.Wrong(c, -1, "地址参数错误"+err.Error())
 		return
 	}
@@ -55,8 +54,7 @@ func WsP2PConnection(c *gin.Context) {
 		v, okk := wsP2PConnMap.Load(in.RoomIdentity)
 		if okk {
 			v.(*sync.Map).Range(func(key, value any) bool {
-				err2 := value.(*websocket.Conn).WriteMessage(websocket.TextMessage, data)
-				if err2 != nil {
+				if err2 := value.(*websocket.Conn).WriteMessage(websocket.TextMessage, data); err != nil {
 					log.Println("WriteMessage err.", err2)
 				}
 				return true

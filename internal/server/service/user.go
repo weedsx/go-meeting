@@ -14,8 +14,7 @@ import (
 // swagger:operation POST /user/login
 func UserLogin(c *gin.Context) {
 	in := new(UserLoginRequest)
-	err := c.ShouldBindJSON(in)
-	if err != nil {
+	if err := c.ShouldBindJSON(in); err != nil {
 		res.Wrong(c, -1, "request error")
 		return
 	}
@@ -28,9 +27,9 @@ func UserLogin(c *gin.Context) {
 
 	in.Password = helper.GetMd5(in.Password)
 	data := new(models.UserBasic)
-	err = models.DB.Where("username = ? and password = ?",
-		in.Username, in.Password).First(&data).Error
-	if err != nil {
+
+	if err := models.DB.Where("username = ? and password = ?",
+		in.Username, in.Password).First(&data).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			res.Wrong(c, -1, "用户名或密码错误")
 			return
@@ -39,12 +38,12 @@ func UserLogin(c *gin.Context) {
 		return
 	}
 
-	token, err := helper.GenerateToken(data.ID, data.Username)
-	if err != nil {
+	if token, err := helper.GenerateToken(data.ID, data.Username); err != nil {
 		res.Wrong(c, -1, "GenerateToken Error:"+err.Error())
 		return
+	} else {
+		res.Success(c, gin.H{
+			"token": token,
+		})
 	}
-	res.Success(c, gin.H{
-		"token": token,
-	})
 }

@@ -13,8 +13,7 @@ import (
 // swagger:operation GET /meeting/list
 func MeetingList(c *gin.Context) {
 	in := new(MeetingListRequest)
-	err := c.ShouldBindQuery(in)
-	if err != nil {
+	if err := c.ShouldBindQuery(in); err != nil {
 		res.Wrong(c, -1, "参数异常")
 		return
 	}
@@ -25,9 +24,8 @@ func MeetingList(c *gin.Context) {
 	if strings.TrimSpace(in.Keyword) != "" {
 		tx.Where("name like ?", "%"+in.Keyword+"%")
 	}
-	err = tx.Count(&cnt).Limit(in.Size).Offset((in.Page - 1) * in.Size).
-		Find(&list).Error
-	if err != nil {
+	if err := tx.Count(&cnt).Limit(in.Size).Offset((in.Page - 1) * in.Size).
+		Find(&list).Error; err != nil {
 		res.Wrong(c, -1, "系统异常："+err.Error())
 		return
 	}
@@ -41,19 +39,18 @@ func MeetingList(c *gin.Context) {
 func MeetingCreate(c *gin.Context) {
 	uc := c.MustGet("user_claims").(*helper.UserClaims)
 	in := new(MeetingCreateRequest)
-	err := c.ShouldBindJSON(in)
-	if err != nil {
+	if err := c.ShouldBindJSON(in); err != nil {
 		res.Wrong(c, -1, "参数异常")
 		return
 	}
-	err = models.DB.Create(&models.RoomBasic{
+
+	if err := models.DB.Create(&models.RoomBasic{
 		Identity: helper.GetUUID(),
 		Name:     in.Name,
 		BeginAt:  time.UnixMilli(in.BeginAt),
 		EndAt:    time.UnixMilli(in.EndAt),
 		CreateId: uc.Id,
-	}).Error
-	if err != nil {
+	}).Error; err != nil {
 		res.Wrong(c, -1, "系统异常: "+err.Error())
 		return
 	}
@@ -64,18 +61,18 @@ func MeetingCreate(c *gin.Context) {
 func MeetingEdit(c *gin.Context) {
 	uc := c.MustGet("user_claims").(*helper.UserClaims)
 	in := new(MeetingEditRequest)
-	err := c.ShouldBindJSON(in)
-	if err != nil {
+	if err := c.ShouldBindJSON(in); err != nil {
 		res.Wrong(c, -1, "参数异常")
 		return
 	}
-	err = models.DB.Model(new(models.RoomBasic)).
+
+	if err := models.DB.Model(new(models.RoomBasic)).
 		Where("identity = ? AND create_id = ?",
-			in.Identity, uc.Id).Error
-	if err != nil {
+			in.Identity, uc.Id).Error; err != nil {
 		res.Wrong(c, -1, "系统异常: "+err.Error())
 		return
 	}
+
 	res.Success(c, "ok")
 }
 
@@ -83,11 +80,12 @@ func MeetingEdit(c *gin.Context) {
 func MeetingDelete(c *gin.Context) {
 	identity := c.Query("identity")
 	uc := c.MustGet("user_claims").(*helper.UserClaims)
-	err := models.DB.Where("identity = ? and create_id = ?",
-		identity, uc.Id).Delete(&models.RoomBasic{}).Error
-	if err != nil {
+
+	if err := models.DB.Where("identity = ? and create_id = ?",
+		identity, uc.Id).Delete(&models.RoomBasic{}).Error; err != nil {
 		res.Wrong(c, -1, "系统异常: "+err.Error())
 		return
 	}
+
 	res.Success(c, "ok")
 }
