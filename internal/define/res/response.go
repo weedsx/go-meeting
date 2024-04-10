@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// swagger:response Response
 type Response struct {
 	Code int         `json:"code"`
 	Msg  string      `json:"msg"`

@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// swagger:model RoomBasic
 type RoomBasic struct {
 	gorm.Model
 	Identity string    `gorm:"column:identity;type:varchar(36);uniqueIndex;not null" json:"identity"`

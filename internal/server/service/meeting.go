@@ -10,7 +10,7 @@ import (
 )
 
 // MeetingList
-// @Description Get Meeting List
+// swagger:operation GET /meeting/list
 func MeetingList(c *gin.Context) {
 	in := new(MeetingListRequest)
 	err := c.ShouldBindQuery(in)
@@ -37,6 +37,7 @@ func MeetingList(c *gin.Context) {
 	})
 }
 
+// swagger:operation POST /meeting/create
 func MeetingCreate(c *gin.Context) {
 	uc := c.MustGet("user_claims").(*helper.UserClaims)
 	in := new(MeetingCreateRequest)
@@ -59,6 +60,7 @@ func MeetingCreate(c *gin.Context) {
 	res.Success(c, "ok")
 }
 
+// swagger:operation POST /meeting/edit
 func MeetingEdit(c *gin.Context) {
 	uc := c.MustGet("user_claims").(*helper.UserClaims)
 	in := new(MeetingEditRequest)
@@ -77,6 +79,7 @@ func MeetingEdit(c *gin.Context) {
 	res.Success(c, "ok")
 }
 
+// swagger:operation DELETE /meeting/delete
 func MeetingDelete(c *gin.Context) {
 	identity := c.Query("identity")
 	uc := c.MustGet("user_claims").(*helper.UserClaims)

@@ -2,6 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
+// swagger:model UserBasic
 type UserBasic struct {
 	gorm.Model
 	Username string `gorm:"column:username;type:varchar(100);uniqueIndex;not null" json:"username"`

@@ -11,6 +11,7 @@ import (
 
 var wsP2PConnMap = sync.Map{}
 
+// swagger:operation GET /ws/p2p/:room_identity/:user_identity
 func WsP2PConnection(c *gin.Context) {
 	// 0. 获取房间和用户的信息
 	// 1. 升级协议

@@ -2,6 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
+// swagger:model RoomUser
 type RoomUser struct {
 	gorm.Model
 	Rid uint `gorm:"column:room_id;type:int(11);not null" json:"rid"`

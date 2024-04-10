@@ -11,6 +11,7 @@ import (
 	"strings"
 )
 
+// swagger:operation POST /user/login
 func UserLogin(c *gin.Context) {
 	in := new(UserLoginRequest)
 	err := c.ShouldBindJSON(in)
