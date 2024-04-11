@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go/v4"
 	"github.com/google/uuid"
-	"go-meeting/internal/define"
+	"go-meeting/server/define"
 )
 
 type UserClaims struct {

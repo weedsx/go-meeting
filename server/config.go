@@ -9,7 +9,7 @@ import (
 func ConfigInit() {
 	viper.SetConfigName("dev")
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("./internal/")
+	viper.AddConfigPath("./server/")
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Fatalf("read config failed: %v", err)

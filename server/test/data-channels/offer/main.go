@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"github.com/pion/webrtc/v4"
-	"go-meeting/internal/helper"
+	"go-meeting/server/helper"
 	"log"
 	"os"
 	"strconv"

@@ -3,7 +3,7 @@ package service
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"go-meeting/internal/define/res"
+	"go-meeting/server/define/res"
 	"log"
 	"net/http"
 	"sync"

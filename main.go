@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-meeting/internal"
-	"go-meeting/internal/models"
-	"go-meeting/internal/server/router"
+	"go-meeting/server"
+	"go-meeting/server/models"
+	"go-meeting/server/router"
 	"log"
 )
 

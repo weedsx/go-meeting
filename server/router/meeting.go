@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-meeting/internal/server/service"
+	"go-meeting/server/service"
 )
 
 func meetingRouter(r *gin.Engine) {

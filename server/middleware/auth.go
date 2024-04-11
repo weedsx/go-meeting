@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-meeting/internal/define/res"
-	"go-meeting/internal/helper"
+	"go-meeting/server/define/res"
+	"go-meeting/server/helper"
 	"net/http"
 )
 

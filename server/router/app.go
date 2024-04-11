@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-meeting/internal/middleware"
+	"go-meeting/server/middleware"
 )
 
 func Router() *gin.Engine {
@@ -15,7 +15,7 @@ func Router() *gin.Engine {
 	// 解决跨域
 	r.Use(middleware.Cors())
 	r.Static("/web", "./web")
-	// r.Static("/", "/")
+
 	userRouter(r)
 	wsRouter(r)
 	// 认证

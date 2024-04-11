@@ -2,9 +2,9 @@ package service
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-meeting/internal/define/res"
-	"go-meeting/internal/helper"
-	"go-meeting/internal/models"
+	"go-meeting/server/define/res"
+	"go-meeting/server/helper"
+	"go-meeting/server/models"
 	"strings"
 	"time"
 )
